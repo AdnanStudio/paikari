@@ -1,0 +1,256 @@
+/* General Reset & Base Styles */
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+}
+body { 
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    line-height: 1.6; 
+    color: #333; 
+    background-color: #f4f7f6; 
+    overflow-x: hidden; 
+}
+a { 
+    text-decoration: none; 
+    color: #0056b3; 
+}
+ul { 
+    list-style: none; 
+}
+:root {
+    --primary-blue: #007bff; 
+    --primary-blue-dark: #0056b3; 
+    --primary-blue-light: #60a5fa;
+    --text-color: #333; 
+    --dark-bg: #0d253f; 
+    --light-bg: #ffffff; 
+    --sidebar-bg: #e9ecef;
+    --sidebar-active-bg: var(--primary-blue); 
+    --sidebar-active-text: #fff; 
+    --sidebar-hover-bg: #d1d6db;
+    --button-bg: var(--primary-blue); 
+    --button-text: #fff; 
+    --button-hover-bg: var(--primary-blue-dark);
+    --code-bg: #f8f9fa; 
+    --code-border: #dee2e6; 
+    --mobile-menu-width: 250px;
+}
+
+/* Layout */
+.app-container { display: flex; flex-direction: column; min-height: 100vh; }
+.main-layout { display: flex; flex-grow: 1; position: relative; }
+
+/* Header */
+.app-header { background-color: var(--dark-bg); color: #f8f9fa; padding: 10px 15px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 2px 4px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; }
+.header-left { display: flex; align-items: center; }
+.hamburger-menu { display: none; font-size: 1.8em; color: #f8f9fa; cursor: pointer; margin-right: 15px; line-height: 1; }
+.logo-link { display: inline-block; font-size: 1.5em; font-weight: bold; color: var(--primary-blue-light); text-decoration: none; cursor: pointer; }
+.logo-link:hover { color: #8ec3ff; }
+.header-middle { display: flex; align-items: center; flex-grow: 1; margin: 0 15px; max-width: 500px; position: relative; }
+.search-input-wrapper { position: relative; display: flex; flex-grow: 1; }
+.search-bar { padding: 8px 12px; padding-right: 40px; border: 1px solid #555; background-color: #334e68; color: #fff; border-radius: 4px; width: 100%; font-size: 0.9em; }
+.search-bar::placeholder { color: #ccc; }
+.search-button { position: absolute; right: 1px; top: 1px; bottom: 1px; width: 38px; background-color: var(--primary-blue); color: white; border: none; border-radius: 0 3px 3px 0; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: transform 0.3s cubic-bezier(0.68, -0.55, 0.27, 1.55), background-color 0.3s ease; }
+.search-button:hover { background-color: var(--primary-blue-dark); }
+.search-button.clicked { transform: translateX(-10px) scale(0.9); }
+.search-button svg { width: 16px; height: 16px; fill: currentColor; }
+.search-suggestions { display: none; position: absolute; top: calc(100% + 2px); left: 0; width: 100%; background-color: #fff; border: 1px solid #ccc; border-radius: 4px; max-height: 200px; overflow-y: auto; z-index: 1200; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+.search-suggestions div { padding: 8px 12px; color: #333; cursor: pointer; font-size: 0.9em; }
+.search-suggestions div:hover { background-color: var(--sidebar-hover-bg); }
+.search-suggestions div.no-results { color: #777; font-style: italic; cursor: default; }
+.search-suggestions div.no-results:hover { background-color: transparent; }
+
+/* Sidebar */
+.app-sidebar { width: 220px; background-color: var(--sidebar-bg); padding-top: 20px; transition: transform 0.3s ease-in-out; height: calc(100vh - 56px); overflow-y: auto; position: sticky; top: 56px; z-index: 900; }
+.sidebar-nav ul li a { display: block; padding: 10px 15px; color: var(--text-color); transition: background-color 0.3s ease, color 0.3s ease; font-size: 0.95em; }
+.sidebar-nav ul li a:hover { background-color: var(--sidebar-hover-bg); }
+.sidebar-nav ul li a.active { background-color: var(--sidebar-active-bg); color: var(--sidebar-active-text); font-weight: bold; }
+
+/* Main Content */
+.app-main-content { flex-grow: 1; padding: 25px; background-color: var(--light-bg); max-width: calc(100% - 220px); overflow-y: auto; height: calc(100vh - 56px);  }
+.tutorial-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #eee;}
+.tutorial-header h1 { color: var(--dark-bg); font-size: 2em; }
+.nav-buttons button { background-color: var(--button-bg); color: var(--button-text); border: none; padding: 10px 20px; border-radius: 4px; cursor: pointer; transition: background-color 0.3s ease; margin-left: 10px; font-size: 0.9em; }
+.nav-buttons button:hover { background-color: var(--button-hover-bg); }
+.nav-buttons button.home-btn { background-color: #6c757d; }
+.nav-buttons button.home-btn:hover { background-color: #5a6268; }
+.content-section { background-color: #f0f8ff; padding: 20px; margin-bottom: 25px; border-radius: 5px; border: 1px solid #cce5ff; }
+.content-section.darker-section { background-color: var(--dark-bg); color: #f0f8ff; border: 1px solid #0b2035; }
+.darker-section h2 { color: #f0f8ff; } .darker-section p { color: #e0eaff; }
+.content-section h2 { color: var(--dark-bg); margin-bottom: 15px; font-size: 1.8em; }
+.content-section p { margin-bottom: 15px; line-height: 1.7; }
+.action-button { display: inline-block; background-color: var(--button-bg); color: var(--button-text); padding: 12px 25px; border-radius: 5px; font-size: 1em; font-weight: bold; text-align: center; cursor: pointer; transition: background-color 0.3s ease, transform 0.2s ease; border: none; }
+.action-button:hover { background-color: var(--button-hover-bg); transform: translateY(-2px); }
+.code-example-block { background-color: var(--code-bg); border: 1px solid var(--code-border); padding: 15px; margin-bottom: 15px; border-radius: 4px; overflow-x: auto; }
+.code-example-block pre { margin: 0; font-family: 'Courier New', Courier, monospace; font-size: 0.95em; color: #333; white-space: pre-wrap; }
+.code-example-block code .tag { color: #990055; font-weight: bold; } .code-example-block code .attr-name { color: #669900; } .code-example-block code .attr-value { color: #0077aa; } .code-example-block code .comment { color: #888888; font-style: italic;} .code-example-block code .text { color: #000000;}
+.right-ad-placeholder { float: right; width: 180px; min-height: 250px; background-color: #e9ecef; margin-left: 20px; margin-bottom: 20px; border-radius: 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 15px; font-size: 0.9em; color: #555; border: 1px solid #ccc;}
+.right-ad-placeholder strong { font-size: 1.1em; color: var(--primary-blue); margin-bottom: 8px; }
+.right-ad-placeholder .action-button { font-size: 0.9em; padding: 8px 15px; margin-top: 15px; }
+
+/* === Product Info Section (Common Styles for Panjabi & Lungi within it) === */
+.product-info-section.blue-theme {
+    background-color: #e7f3fe; 
+    border: 1px solid var(--primary-blue-light);
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+}
+.product-info-section.blue-theme .product-main-title { 
+    background-color: var(--dark-bg);
+    color: var(--primary-blue-light); 
+    padding: 12px 20px;
+    border-radius: 8px 8px 0 0;
+    font-size: 2.2em;
+    margin: -25px -25px 20px -25px; 
+    font-weight: bold;
+    text-align: center;
+}
+ .product-info-section.blue-theme .product-sub-heading {
+    font-size: 1.8em;
+    color: var(--dark-bg);
+    margin-top: 25px; 
+    margin-bottom: 15px;
+    text-align: center;
+    font-weight: 600;
+}
+.product-info-section.blue-theme .product-sub-heading:first-of-type {
+    margin-top: 0;
+}
+.product-info-section.blue-theme .product-description {
+    font-size: 1.1em;
+    line-height: 1.7;
+    color: var(--text-color);
+    margin-bottom: 20px;
+    text-align: left; 
+}
+.product-info-section.blue-theme .product-description.intro-text { 
+    text-align: center;
+    margin-bottom: 25px;
+    font-size: 1.15em; 
+}
+.product-info-section.blue-theme .product-description strong {
+    color: var(--primary-blue-dark); 
+}
+.product-info-section.blue-theme .market-name { 
+    font-size: 1.3em;
+    color: var(--dark-bg);
+    margin-bottom: 25px;
+    font-weight: 600;
+    text-align: center;
+}
+.product-info-section.blue-theme .contact-buttons {
+    display: flex;
+    justify-content: center;
+    gap: 15px; 
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+}
+.product-info-section.blue-theme .info-button {
+    display: inline-flex; align-items: center; justify-content: center;
+    background-color: #fff; 
+    color: var(--primary-blue-dark);
+    border: 2px solid var(--primary-blue);
+    padding: 10px 20px;
+    border-radius: 25px; 
+    font-size: 1em;
+    font-weight: 500;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    min-width: 180px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1); 
+}
+.product-info-section.blue-theme .info-button:hover {
+    background-color: var(--primary-blue); color: #fff;
+    border-color: var(--primary-blue-dark);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    transform: translateY(-1px);
+}
+.product-info-section.blue-theme .info-button .icon { 
+    width: 20px; height: 20px; margin-left: 8px; fill: currentColor;
+}
+.product-info-section.blue-theme .info-button.phone-display { 
+    background-color: transparent; border: 1px solid var(--primary-blue-light);
+    color: var(--text-color); cursor: default; box-shadow: none;
+}
+.product-info-section.blue-theme .info-button.phone-display:hover {
+    background-color: transparent; color: var(--text-color);
+    border: 1px solid var(--primary-blue-light); transform: none;
+}
+.product-info-section.blue-theme .additional-info { 
+    margin-top: 10px;
+}
+.product-info-section.blue-theme hr.section-divider {
+    border: 0;
+    height: 1px;
+    background-image: linear-gradient(to right, rgba(0, 123, 255, 0), rgba(0, 123, 255, 0.75), rgba(0, 123, 255, 0));
+    margin: 30px 0;
+}
+
+/* Footer & Responsive */
+.app-footer { background-color: var(--dark-bg); color: #adb5bd; padding: 40px 20px; text-align: center; }
+.footer-main-links { display: flex; justify-content: center; flex-wrap: wrap; margin-bottom: 30px; gap: 20px; } .footer-column { width: calc(25% - 20px); max-width: 220px; text-align: left; margin-bottom: 20px; } .footer-column h4 { color: #f8f9fa; margin-bottom: 15px; font-size: 1.1em; border-bottom: 1px solid #444; padding-bottom: 8px; } .footer-column ul li { margin-bottom: 8px; } .footer-column ul li a { color: #adb5bd; font-size: 0.9em; transition: color 0.3s ease; } .footer-column ul li a:hover { color: var(--primary-blue-light); text-decoration: underline; } .footer-social-icons { margin-bottom: 20px; } .footer-social-icons a { color: #adb5bd; font-size: 1.6em; margin: 0 12px; transition: color 0.3s ease, transform 0.2s ease; } .footer-social-icons a:hover { color: var(--primary-blue-light); transform: scale(1.1); } .footer-extra-links { margin-bottom: 20px; } .footer-extra-links a { color: #f0f8ff; margin: 0 10px; font-weight: 500; } .footer-extra-links a:hover { text-decoration: underline; } .footer-bottom-text { font-size: 0.85em; margin-top: 20px; border-top: 1px solid #444; padding-top: 20px; line-height: 1.5; } .footer-bottom-text p { margin-bottom: 5px; }
+.overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); z-index: 1050; } body.sidebar-open .overlay { display: block; }
+@media (max-width: 768px) { .app-sidebar { position: fixed; top: 0; left: 0; height: 100vh; width: var(--mobile-menu-width); transform: translateX(calc(-1 * var(--mobile-menu-width))); z-index: 1100; box-shadow: 2px 0 5px rgba(0,0,0,0.2); padding-top: 50px; } body.sidebar-open .app-sidebar { transform: translateX(0); } .hamburger-menu { display: block; } .logo-link { font-size: 1.3em; } .app-header { padding: 10px; } .header-middle { margin: 0 10px; } .search-bar { font-size: 0.85em; } .app-main-content { max-width: 100%; margin-left: 0; padding: 15px; height: calc(100vh - 50px); } .right-ad-placeholder { float: none; width: 100%; margin-left: 0; margin-top: 15px; min-height: auto; padding: 15px; } .tutorial-header { flex-direction: column; align-items: flex-start; } .tutorial-header h1 { font-size: 1.6em; margin-bottom: 10px;} .nav-buttons { width: 100%; display: flex; justify-content: space-between;} .nav-buttons button { flex-grow: 1; margin-left: 5px; margin-right: 5px;} .nav-buttons button:first-child { margin-left: 0;} .nav-buttons button:last-child { margin-right: 0;} .footer-column { width: calc(50% - 20px); } .product-info-section.blue-theme .product-main-title { font-size: 1.8em; padding: 10px 15px; } .product-info-section.blue-theme .product-sub-heading { font-size: 1.5em; } .product-info-section.blue-theme .product-description { font-size: 1em; } .product-info-section.blue-theme .market-name { font-size: 1.15em; } .product-info-section.blue-theme .contact-buttons { flex-direction: column; align-items: center; } .product-info-section.blue-theme .info-button { width: 100%; max-width: 280px; } }
+@media (max-width: 600px) { .footer-column { width: 100%; max-width: 300px; text-align: center; } .footer-column h4 { text-align: center; } }
+@media (max-width: 480px) { .logo-link { font-size: 1.2em; } .hamburger-menu { font-size: 1.6em; margin-right: 10px; } .header-middle { margin: 0 5px; } .search-bar { padding: 7px 10px; padding-right: 35px; font-size: 0.8em;} .search-button { width: 30px;} .search-button svg {width: 14px; height: 14px;} .tutorial-header h1 { font-size: 1.4em; } .action-button { font-size: 0.9em; padding: 10px 15px;} .content-section h2 { font-size: 1.5em; } }
+
+
+/* product image */
+        /* === Product Info Section (Common Styles for Panjabi & Lungi within it) === */
+        .product-info-section.blue-theme {
+            background-color: #e7f3fe; 
+            border: 1px solid var(--primary-blue-light);
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        .product-info-section.blue-theme .product-main-title { 
+            background-color: var(--dark-bg);
+            color: var(--primary-blue-light); 
+            padding: 12px 20px;
+            border-radius: 8px 8px 0 0;
+            font-size: 2.2em;
+            margin: -25px -25px 20px -25px; 
+            font-weight: bold;
+            text-align: center;
+        }
+         .product-info-section.blue-theme .product-sub-heading { /* এই ক্লাসটি ইমেজের ক্ষেত্রেও ব্যবহার করা যেতে পারে কিছু মার্জিনের জন্য */
+            font-size: 1.8em;
+            color: var(--dark-bg);
+            margin-top: 25px; 
+            margin-bottom: 15px;
+            text-align: center;
+            font-weight: 600;
+        }
+        /* নতুন CSS ক্লাস ছবির জন্য */
+        .product-image.panjabi-image {
+            display: block; /* এটি ছবিকে সেন্টারে আনতে সাহায্য করবে margin auto দিয়ে */
+            width: 40%; /* আপনার প্রয়োজন অনুযায়ী ছবির প্রস্থ পরিবর্তন করুন */
+            height: auto; /* ছবির aspect ratio ঠিক রাখার জন্য */
+            border-radius: 15px; /* গোলাকার বর্ডারের জন্য */
+            border: 2px solid var(--primary-blue-light); /* ছবির চারপাশে হালকা বর্ডার */
+            margin-left: auto; /* সেন্টারে আনার জন্য */
+            margin-right: auto; /* সেন্টারে আনার জন্য */
+            margin-top: 50px; /* product-sub-heading এর মতো মার্জিন */
+            margin-bottom: 15px; /* product-sub-heading এর মতো মার্জিন */
+        }
+        /* ট্যাবলেট স্ক্রিনের জন্য */
+        @media screen and (max-width: 1024px) {
+            .product-image.panjabi-image {
+                width: 60%;
+            }
+        }
+
+        /* মোবাইল স্ক্রিনের জন্য */
+        @media screen and (max-width: 768px) {
+            .product-image.panjabi-image {
+                width: 90%;
+            }
+        }
+        /* ... CSS ... */
+
+
+        
+
